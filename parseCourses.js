@@ -1,56 +1,60 @@
-// const mongoose = require('mongoose');
-// const fs = require('fs');
-// const path = require('path');
+const mongoose = require('mongoose');
+const fs = require('fs');
+const path = require('path');
+import dotenv from 'dotenv';
 
-// // MongoDB connection
-// mongoose.connect('mongodb+srv://alfabetagama4356:73K2zVIb9aZR3wOJ@cluster0.pnaxs.mongodb.net/coursesDB?retryWrites=true&w=majority&appName=Cluster0');
+dotenv.config();
 
-// // Define the chapter schema
-// const chapterSchema = new mongoose.Schema({
-//     name: String,
-//     text: String,
-//     ratings: { type: Number, default: 0 }
-// });
 
-// // Define the course schema
-// const courseSchema = new mongoose.Schema({
-//     name: String,
-//     date: Number,
-//     description: String,
-//     domain: [String],
-//     chapters: [chapterSchema]
-// });
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI);
 
-// const Course = mongoose.model('Course', courseSchema);
+// Define the chapter schema
+const chapterSchema = new mongoose.Schema({
+    name: String,
+    text: String,
+    ratings: { type: Number, default: 0 }
+});
 
-// // Read and parse the JSON file
-// const coursesData = JSON.parse(fs.readFileSync(path.join(__dirname, 'courses.json'), 'utf-8'));
+// Define the course schema
+const courseSchema = new mongoose.Schema({
+    name: String,
+    date: Number,
+    description: String,
+    domain: [String],
+    chapters: [chapterSchema]
+});
 
-// // Function to generate a random rating between -5 and 5
-// function getRandomRating() {
-//     return Math.floor(Math.random() * 11) - 5; // Generates a number between -5 and 5
-// }
+const Course = mongoose.model('Course', courseSchema);
 
-// // Function to insert data with random ratings
-// async function insertCourses() {
-//     try {
-//         // Assign random ratings to each chapter in the courses data
-//         coursesData.forEach(course => {
-//             course.chapters.forEach(chapter => {
-//                 chapter.ratings = getRandomRating();
-//             });
-//         });
+// Read and parse the JSON file
+const coursesData = JSON.parse(fs.readFileSync(path.join(__dirname, 'courses.json'), 'utf-8'));
 
-//         await Course.insertMany(coursesData);
-//         console.log('Courses inserted successfully with random ratings!');
-//     } catch (err) {
-//         console.error('Error inserting courses:', err);
-//     } finally {
-//         mongoose.connection.close();
-//     }
-// }
+// Function to generate a random rating between -5 and 5
+function getRandomRating() {
+    return Math.floor(Math.random() * 11) - 5; // Generates a number between -5 and 5
+}
 
-// insertCourses();
+// Function to insert data with random ratings
+async function insertCourses() {
+    try {
+        // Assign random ratings to each chapter in the courses data
+        coursesData.forEach(course => {
+            course.chapters.forEach(chapter => {
+                chapter.ratings = getRandomRating();
+            });
+        });
+
+        await Course.insertMany(coursesData);
+        console.log('Courses inserted successfully with random ratings!');
+    } catch (err) {
+        console.error('Error inserting courses:', err);
+    } finally {
+        mongoose.connection.close();
+    }
+}
+
+insertCourses();
 
 const mongoose = require('mongoose');
 const fs = require('fs');
