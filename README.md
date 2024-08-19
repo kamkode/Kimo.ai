@@ -58,10 +58,12 @@ As a software engineer at KIMO, you are tasked with implementing a back-end API 
 
 3. **Run tests**:  
    Run `npm test` to execute all test cases.
+5. **Render Hosted Link**: 
+'https://kimo-ai-test.onrender.com'
 
-4. **Swagger Documentation**:  
+6. **Swagger Documentation**:  
    The Swagger documentation is available at:  
-   'http://localhost:4000/api-docs'
+   'https://kimo-ai-test.onrender.com/api-docs/#/'
 
 
 
