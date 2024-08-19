@@ -1,9 +1,8 @@
+// Import required modules
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
-import dotenv from 'dotenv';
-
-dotenv.config();
+require('dotenv').config(); // Correct import for dotenv
 
 
 // MongoDB connection
