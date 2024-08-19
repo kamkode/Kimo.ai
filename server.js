@@ -41,7 +41,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'http://localhost:4000',
+                url: 'https://kimo-ai-test.onrender.com',
             },
         ],
         components: {
@@ -548,7 +548,7 @@ app.post('/courses/:id/chapters/:chapterId/rate', async (req, res) => {
 
 app.listen(4000, () => {
     console.log('Server is running on port 4000');
-    console.log('swagger is running on http://localhost:4000/api-docs/ ');
+    console.log('swagger is running on https://kimo-ai-test.onrender.com/api-docs/ ');
 });
 
 export { app };
